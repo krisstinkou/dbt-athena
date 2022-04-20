@@ -74,7 +74,7 @@ _Additional information_
 ### Usage notes
 
 **Zero-Downtime Tables**
-Starting from adapter version `1.0.2` there is a way to do `dbt run` without downtime on table update  
+Starting from adapter version `1.0.3` there is a way to do `dbt run` without downtime on table update  
 It works in the following way:  
 1. Enable zero-downtime for tables   
 a) Add var `table_zero_downtime` to the `dbt_project.yml`  
