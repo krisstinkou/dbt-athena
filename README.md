@@ -15,7 +15,7 @@
 
 ### Installation
 
-`pip install git+https://github.com/Tomme/dbt-athena.git`
+`pip install git+https://github.com/SOVALINUX/dbt-athena`
 
 ### Prerequisites
 
@@ -72,6 +72,24 @@ _Additional information_
 * `database` and `catalog` can be used interchangeably
 
 ### Usage notes
+
+**Zero-Downtime Tables**
+Starting from adapter version `1.0.2` there is a way to do `dbt run` without downtime on table update  
+It works in the following way:  
+1. Enable zero-downtime for tables   
+a) Add var `table_zero_downtime` to the `dbt_project.yml`  
+```
+vars:
+  table_zero_downtime: true
+```
+b) Alternatively add tag `table_zero_downtime` to the specific model with `table` materialization  
+```
+{{config(tags=['table_zero_downtime'])}}
+```
+2. Create a companion view for your table  
+a) It's usually is very simple like `select * from {{ref('table_model')}}`  
+b) Move all tests to a companion view, since tests on the table are not working properly in all cases  
+c) Documentation for the table will not have columns, but everything will be fine with created view  
 
 ### Models
 
