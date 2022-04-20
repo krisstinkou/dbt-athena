@@ -56,7 +56,7 @@ class AthenaRelation(BaseRelation):
             alias_full_name = '{}.{}.{}'.format(database, schema, alias)
             gmodel = graph.get('nodes').get(model_old_name)
             ctas_id = kwargs.get("ctas_id")
-            if gmodel is not None and alias_full_name not in CTAS:
+            if gmodel is not None and alias_full_name not in ZERODOWNTIME_CTAS:
                 # TODO: It's actually questionable do we need to update the global graph
                 old_name = model.get('relation_name')
                 model_id_parts = model.get('unique_id').split('.')[0:-1]
