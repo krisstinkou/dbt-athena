@@ -51,8 +51,8 @@ setup(
     url="https://github.com/SOVALINUX/dbt-athena",
     packages=find_namespace_packages(include=["dbt", "dbt.*"]),
     include_package_data=True,
-    dependency_links = ['https://github.com/SOVALINUX/dbt-core.git@v1.0.6epam1#egg=dbt-core&subdirectory=core'],
     install_requires=[
+        "dbt-core>=1.0.4,<1.1.0",
         "pyathena==2.2.0",
         "boto3==1.18.12",
         "tenacity==6.3.1",
