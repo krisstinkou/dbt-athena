@@ -4,7 +4,7 @@
   {{ run_hooks(pre_hooks) }}
 
   {%- set old_relation = adapter.get_relation(database=database, schema=schema, identifier=identifier) -%}
-  {% if not var('table_zero_downtime', false) or 'table_zero_downtime' not in config.get('tags') %}
+  {% if not var('table_zero_downtime', false) and 'table_zero_downtime' not in config.get('tags') %}
     {%- if old_relation is not none -%}
       {{ adapter.drop_relation(old_relation) }}
     {%- endif -%}
