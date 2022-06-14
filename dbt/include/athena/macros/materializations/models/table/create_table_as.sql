@@ -4,7 +4,7 @@
   {%- set bucketed_by = config.get('bucketed_by', default=none) -%}
   {%- set bucket_count = config.get('bucket_count', default=none) -%}
   {%- set field_delimiter = config.get('field_delimiter', default=none) -%}
-  {%- set write_compression = config.get('write_compression', default='GZIP') -%}
+  {%- set write_compression = config.get('write_compression', default=none) -%}
   {%- set format = config.get('format', default='parquet') -%}
 
   create table
