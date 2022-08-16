@@ -29,7 +29,7 @@ package_version = _dbt_athena_version()
 description = """The athena adapter plugin for dbt (data build tool)"""
 
 
-dbt_version = "1.2.0"
+dbt_version = "1.2"
 
 if not package_version.startswith(dbt_version):
     raise ValueError(
