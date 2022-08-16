@@ -61,8 +61,8 @@ class AthenaAdapter(SQLAdapter):
         client = conn.handle
 
         with boto3_client_lock:
-            glue_client = boto3.client('glue', region_name=client.region_name)
-        s3_resource = boto3.resource('s3', region_name=client.region_name)
+            glue_client = boto3.client('glue', region_name=client.region_name, profile_name=client.profile_name)
+        s3_resource = boto3.resource('s3', region_name=client.region_name, profile_name=client.profile_name)
         partitions = glue_client.get_partitions(
             # CatalogId='123456789012', # Need to make this configurable if it is different from default AWS Account ID
             DatabaseName=database_name,
@@ -87,7 +87,7 @@ class AthenaAdapter(SQLAdapter):
         conn = self.connections.get_thread_connection()
         client = conn.handle
         with boto3_client_lock:
-            glue_client = boto3.client('glue', region_name=client.region_name)
+            glue_client = boto3.client('glue', region_name=client.region_name, profile_name=client.profile_name)
         try:
             table = glue_client.get_table(
                 DatabaseName=database_name,
@@ -105,7 +105,7 @@ class AthenaAdapter(SQLAdapter):
             if m is not None:
                 bucket_name = m.group(1)
                 prefix = m.group(2)
-                s3_resource = boto3.resource('s3', region_name=client.region_name)
+                s3_resource = boto3.resource('s3', region_name=client.region_name, profile_name=client.profile_name)
                 s3_bucket = s3_resource.Bucket(bucket_name)
                 s3_bucket.objects.filter(Prefix=prefix).delete()
 
@@ -152,7 +152,7 @@ class AthenaAdapter(SQLAdapter):
         conn = self.connections.get_thread_connection()
         client = conn.handle
         with boto3_client_lock:
-            athena_client = boto3.client('athena', region_name=client.region_name)
+            athena_client = boto3.client('athena', region_name=client.region_name, profile_name=client.profile_name)
         
         response = athena_client.get_data_catalog(Name=catalog_name)
         return response['DataCatalog']
@@ -172,7 +172,7 @@ class AthenaAdapter(SQLAdapter):
         conn = self.connections.get_thread_connection()
         client = conn.handle
         with boto3_client_lock:
-            glue_client = boto3.client('glue', region_name=client.region_name)
+            glue_client = boto3.client('glue', region_name=client.region_name, profile_name=client.profile_name)
         paginator = glue_client.get_paginator('get_tables')
 
         kwargs = {
