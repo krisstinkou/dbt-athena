@@ -9,7 +9,7 @@ with open(os.path.join(this_directory, 'README.md')) as f:
     long_description = f.read()
 
 
-package_name = "dbt-athena"
+package_name = "dbt-athena-adapter"
 
 
 # get this from a separate file
@@ -52,9 +52,9 @@ setup(
     packages=find_namespace_packages(include=["dbt", "dbt.*"]),
     include_package_data=True,
     install_requires=[
-        "dbt-core>=1.0.4,<1.2.0",
-        "pyathena==2.2.0",
-        "boto3==1.18.12",
-        "tenacity==6.3.1",
+        "dbt-core>=1.1.0,<1.3.0",
+        "pyathena>=2.2.0",
+        "boto3>=1.18.12",
+        "tenacity>=6.3.1",
     ]
 )
