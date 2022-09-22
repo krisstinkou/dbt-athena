@@ -179,9 +179,12 @@ class AthenaAdapter(SQLAdapter):
             glue_client = boto3_session.client('glue')
         try:    
             glue_client.get_database(Name = schema_relation.schema)
-        except EntityNotFoundException as e:
-            logger.debug("Database '{}' not found, returning no tables for it", schema_relation.schema)
-            return []
+        except ClientError as e:
+            if e.response['Error']['Code'] == 'EntityNotFoundException':
+                logger.debug("Database '{}' not found, returning no tables for it", schema_relation.schema)
+                return []
+            raise
+            
         paginator = glue_client.get_paginator('get_tables')
 
         kwargs = {
