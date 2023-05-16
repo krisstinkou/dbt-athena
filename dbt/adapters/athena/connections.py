@@ -19,7 +19,7 @@ from pyathena.formatter import _DEFAULT_FORMATTERS, _escape_hive, _escape_presto
 from dbt.adapters.base import Credentials
 from dbt.contracts.connection import Connection, AdapterResponse
 from dbt.adapters.sql import SQLConnectionManager
-from dbt.exceptions import RuntimeException, FailedToConnectException
+from dbt.exceptions import DbtRuntimeError, FailedToConnectException
 from dbt.events import AdapterLogger
 
 import tenacity
@@ -126,7 +126,7 @@ class AthenaConnectionManager(SQLConnectionManager):
             yield
         except Exception as e:
             logger.debug("Error running SQL: {}", sql)
-            raise RuntimeException(str(e)) from e
+            raise DbtRuntimeError(str(e)) from e
 
     @classmethod
     def open(cls, connection: Connection) -> Connection:
