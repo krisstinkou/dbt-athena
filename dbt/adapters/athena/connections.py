@@ -19,7 +19,7 @@ from pyathena.formatter import _DEFAULT_FORMATTERS, _escape_hive, _escape_presto
 from dbt.adapters.base import Credentials
 from dbt.contracts.connection import Connection, AdapterResponse
 from dbt.adapters.sql import SQLConnectionManager
-from dbt.exceptions import DbtRuntimeError, FailedToConnectException
+from dbt.exceptions import DbtRuntimeError, FailedToConnectError
 from dbt.events import AdapterLogger
 
 import tenacity
@@ -167,7 +167,7 @@ class AthenaConnectionManager(SQLConnectionManager):
             connection.handle = None
             connection.state = "fail"
 
-            raise FailedToConnectException(str(e))
+            raise FailedToConnectError(str(e))
 
         return connection
 
