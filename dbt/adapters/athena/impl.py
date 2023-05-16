@@ -13,7 +13,7 @@ from dbt.adapters.base.relation import BaseRelation, InformationSchema
 from dbt.adapters.sql import SQLAdapter
 from dbt.adapters.athena import AthenaConnectionManager
 from dbt.adapters.athena.relation import AthenaRelation, AthenaSchemaSearchMap
-from dbt.contracts.graph.compiled import CompileResultNode
+from dbt.contracts.graph.nodes import ResultNode
 from dbt.contracts.graph.manifest import Manifest
 from dbt.events import AdapterLogger
 logger = AdapterLogger("Athena")
@@ -139,7 +139,7 @@ class AthenaAdapter(SQLAdapter):
 
     def _get_catalog_schemas(self, manifest: Manifest) -> AthenaSchemaSearchMap:
         info_schema_name_map = AthenaSchemaSearchMap()
-        nodes: Iterator[CompileResultNode] = chain(
+        nodes: Iterator[ResultNode] = chain(
             [node for node in manifest.nodes.values() if (
                 node.is_relational and not node.is_ephemeral_model
             )],
